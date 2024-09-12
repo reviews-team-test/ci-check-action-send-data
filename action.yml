@@ -1,0 +1,31 @@
+name: 'Send-Data-to-MDY'
+description: 'send check data to mdy'
+inputs:
+  testtype:
+    description: 'test type'
+    required: true
+    default: 'staticCheck'
+  status:
+    description: 'status of check result'
+    required: true
+    default: '是'
+  result:
+    description: 'result'
+    required: true
+    default: '0'
+
+
+runs:
+  using: "composite"
+  steps:
+    - run: python3 $GITHUB_ACTION_PATH/sendData.py
+      shell: bash
+      env:
+        PROJECT: "${{github.repository}}"
+        NUMBER: "${{github.event.pull_request.number}}"
+        REVISION: "${{github.event.pull_request.head.sha}}"
+        RUNID: "${{github.run_id}}"
+        JOBSTATUS: "${{job.status}}"
+        TESTTYPE: ${{ inputs.testtype }}
+        STATUS: ${{ inputs.status }}
+        RESULT: ${{ inputs.result }}
