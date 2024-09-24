@@ -18,7 +18,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: python $GITHUB_ACTION_PATH/sendData.py
+    - run: python3 $GITHUB_ACTION_PATH/sendData.py
       shell: bash
       env:
         PROJECT: "${{github.repository}}"
